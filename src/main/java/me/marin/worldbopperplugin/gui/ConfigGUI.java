@@ -87,7 +87,7 @@ public class ConfigGUI extends JFrame {
     public void updateGUI() {
         enableWorldbopper.setSelected(WorldBopperSettings.getInstance().worldbopperEnabled);
         keepWorldsWithNetherCheckBox.setSelected(WorldBopperSettings.getInstance().keepNetherWorlds);
-        savesBuffer.setText(String.valueOf(WorldBopperSettings.getInstance().savesBuffer));
+        savesBuffer.setValue(WorldBopperSettings.getInstance().savesBuffer);
     }
 
     private void createUIComponents() {
