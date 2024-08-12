@@ -47,7 +47,12 @@ public abstract class FileWatcher implements Runnable {
                 for (WatchEvent<?> event : watchKey.pollEvents()) {
                     @SuppressWarnings("unchecked")
                     WatchEvent<Path> ev = (WatchEvent<Path>) event;
-                    File updatedFile = new File(this.file, ev.context().toString());
+                    Path path = ev.context();
+                    if (path == null) {
+                        // sometimes event context is null? not sure how, but it happened.
+                        continue;
+                    }
+                    File updatedFile = new File(this.file, path.toString());
 
                     if (event.kind() == ENTRY_MODIFY) {
                         if (updatedFile.length() > 0) {
