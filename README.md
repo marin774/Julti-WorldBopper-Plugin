@@ -13,7 +13,7 @@ Once you've installed the plugin and restarted Julti, run the quick setup:
 ## Config
 - **Enable WorldBopper?** - Whether worlds should be actively bopped or not.
 - **Keep worlds with nether enters?** - Whether to keep 'Random Speedrun #' worlds that have reached the Nether. You can still manually clear them in Julti by running `clearworlds` or by pressing File Utilities > Clear Worlds.
-- **Max worlds folder size** - Maximum number of worlds (that aren't nether enters, if that option is enabled) to keep in the `saves` folder. This number must be between 5 and 5000.
+- **Max worlds folder size** - Maximum number of worlds (that aren't nether enters, if that option is enabled) to keep in the `saves` folder. This number must be between 50 and 5000.
 
 ![image](https://github.com/user-attachments/assets/4a1d0a42-6a24-4715-9025-3715ccad4d97)
 
