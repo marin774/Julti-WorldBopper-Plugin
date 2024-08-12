@@ -26,7 +26,6 @@ dependencies {
 
 
 processResources {
-    // Totally stolen from Fabric
     inputs.property "version", project.version
 
     filesMatching("julti.plugin.json") {
