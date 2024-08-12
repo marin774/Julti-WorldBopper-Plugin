@@ -58,6 +58,6 @@ public class WorldBopperPlugin implements PluginInitializer {
 
     @Override
     public String getMenuButtonName() {
-        return "WorldBopper";
+        return "Open Config";
     }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Julti WorldBopper Plugin",
+  "name": "WorldBopper",
   "id": "julti-worldbopper-plugin",
   "version": "${version}",
   "initializer": "me.marin.worldbopperplugin.WorldBopperPlugin"
