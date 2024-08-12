@@ -29,7 +29,7 @@
           <text value="Keep worlds with nether enters?"/>
         </properties>
       </component>
-      <component id="2dd34" class="javax.swing.JFormattedTextField" binding="worldsBuffer" custom-create="true">
+      <component id="2dd34" class="javax.swing.JFormattedTextField" binding="savesBuffer" custom-create="true">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

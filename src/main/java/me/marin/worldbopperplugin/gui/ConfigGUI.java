@@ -19,7 +19,7 @@ public class ConfigGUI extends JFrame {
     private boolean isClosed = false;
 
     private JCheckBox enableWorldbopper;
-    private JFormattedTextField worldsBuffer;
+    private JFormattedTextField savesBuffer;
     private JCheckBox keepWorldsWithNetherCheckBox;
     private JButton saveButton;
     private JPanel mainPanel;
@@ -46,35 +46,35 @@ public class ConfigGUI extends JFrame {
             WorldBopperSettings settings = WorldBopperSettings.getInstance();
             settings.worldbopperEnabled = enableWorldbopper.isSelected();
             WorldBopperSettings.save();
-            Julti.log(Level.INFO, settings.worldbopperEnabled ? "World bopper is now active." : "World bopper is no longer active.");
+            Julti.log(Level.INFO, settings.worldbopperEnabled ? "WorldBopper is now active." : "WorldBopper is no longer active.");
         });
 
         keepWorldsWithNetherCheckBox.addActionListener(e -> {
             WorldBopperSettings settings = WorldBopperSettings.getInstance();
             settings.keepNetherWorlds = keepWorldsWithNetherCheckBox.isSelected();
             WorldBopperSettings.save();
-            Julti.log(Level.INFO, settings.keepNetherWorlds ? "World bopper will now be keeping worlds with nether enters." : "World bopper will now be clearing worlds with nether enters.");
+            Julti.log(Level.INFO, settings.keepNetherWorlds ? "WorldBopper will now be keeping worlds with nether enters." : "WorldBopper will now be clearing worlds with nether enters.");
         });
 
         saveButton.addActionListener(e -> {
-            Long number = (Long) worldsBuffer.getValue();
+            Long number = (Long) savesBuffer.getValue();
 
             WorldBopperSettings settings = WorldBopperSettings.getInstance();
 
             if (number == null) {
-                worldsBuffer.setValue(settings.worldsBuffer);
-                JOptionPane.showMessageDialog(null, "Invalid number: '" + worldsBuffer.getText() + "'.");
+                savesBuffer.setValue(settings.savesBuffer);
+                JOptionPane.showMessageDialog(null, "Invalid number: '" + savesBuffer.getText() + "'.");
                 return;
             }
             // number has to be between 5-5000
             number = Math.min(5000, number);
             number = Math.max(5, number);
 
-            settings.worldsBuffer = (int) number.longValue();
+            settings.savesBuffer = (int) number.longValue();
             WorldBopperSettings.save();
 
             // update visually if number was too small/big
-            worldsBuffer.setValue(settings.worldsBuffer);
+            savesBuffer.setValue(settings.savesBuffer);
 
             JOptionPane.showMessageDialog(null, "Set world buffer to " + number + ".");
         });
@@ -87,13 +87,13 @@ public class ConfigGUI extends JFrame {
     public void updateGUI() {
         enableWorldbopper.setSelected(WorldBopperSettings.getInstance().worldbopperEnabled);
         keepWorldsWithNetherCheckBox.setSelected(WorldBopperSettings.getInstance().keepNetherWorlds);
-        worldsBuffer.setText(String.valueOf(WorldBopperSettings.getInstance().worldsBuffer));
+        savesBuffer.setText(String.valueOf(WorldBopperSettings.getInstance().savesBuffer));
     }
 
     private void createUIComponents() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         numberFormat.setParseIntegerOnly(true);
-        worldsBuffer = new JFormattedTextField(numberFormat);
+        savesBuffer = new JFormattedTextField(numberFormat);
     }
 
     // I run this to force intellij to generate code for components
@@ -119,7 +119,7 @@ public class ConfigGUI extends JFrame {
         keepWorldsWithNetherCheckBox = new JCheckBox();
         keepWorldsWithNetherCheckBox.setText("Keep worlds with nether enters?");
         mainPanel.add(keepWorldsWithNetherCheckBox, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        mainPanel.add(worldsBuffer, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        mainPanel.add(savesBuffer, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         saveButton = new JButton();
         saveButton.setText("Save");
         mainPanel.add(saveButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));

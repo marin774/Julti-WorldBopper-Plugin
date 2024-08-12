@@ -32,7 +32,7 @@ public class WorldBopperPlugin implements PluginInitializer {
     @Override
     public void initialize() {
         PluginEvents.RunnableEventType.LAUNCH.register(() -> {
-            Julti.log(Level.INFO, "Running WorldBopperPlugin v" + CURRENT_VERSION + "!");
+            Julti.log(Level.INFO, "Running WorldBopper Plugin v" + CURRENT_VERSION + "!");
 
             WORLD_BOPPER_FOLDER_PATH.toFile().mkdirs();
             WorldBopperSettings.load();
@@ -56,4 +56,8 @@ public class WorldBopperPlugin implements PluginInitializer {
         }
     }
 
+    @Override
+    public String getMenuButtonName() {
+        return "WorldBopper";
+    }
 }

@@ -27,7 +27,7 @@ public class WorldBopperSettings {
     public boolean keepNetherWorlds = true;
 
     @SerializedName("max worlds to keep")
-    public int worldsBuffer = 100;
+    public int savesBuffer = 100;
 
     @SerializedName("version")
     public String version;

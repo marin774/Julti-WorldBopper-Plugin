@@ -40,7 +40,7 @@ public class SavesFolderWatcher extends FileWatcher {
         String dirName = file.getName();
         if (!isValidDirectoryName(dirName)) return;
 
-        int worldsToKeep = WorldBopperSettings.getInstance().worldsBuffer;
+        int worldsToKeep = WorldBopperSettings.getInstance().savesBuffer;
         if (WorldBopperSettings.getInstance().keepNetherWorlds) {
             worldsToKeep += netherWorldsToKeep.size();
         }
@@ -71,7 +71,7 @@ public class SavesFolderWatcher extends FileWatcher {
                 }
                 if (shouldKeepWorld(oldestDir)) {
                     netherWorldsToKeep.add(oldestDir.getName());
-                    Julti.log(Level.DEBUG, "not deleting " + oldestDir.getName() + " because it has nether enter!");
+                    Julti.log(Level.DEBUG, "Not deleting " + oldestDir.getName() + " because it has nether enter!");
                     continue;
                 }
             }
