@@ -8,7 +8,9 @@ import xyz.duncanruns.julti.util.ExceptionUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -59,7 +61,13 @@ public class SavesFolderWatcher extends FileWatcher {
             return;
         }
         // Sort valid worlds by time
-        Arrays.sort(validDirectories, Comparator.comparingLong(File::lastModified));
+        try {
+            Arrays.sort(validDirectories, Comparator.comparingLong(File::lastModified));
+        } catch (IllegalArgumentException ignored) {
+            // rare JDK bug (https://stackoverflow.com/questions/13575224/comparison-method-violates-its-general-contract-timsort-and-gridlayout)
+            // probably not fixable because Arrays class might be loaded before the plugin
+            return;
+        }
 
         for (int i = 0; i < validDirectories.length - worldsToKeep; i++) {
             File oldestDir = validDirectories[i];
@@ -82,8 +90,12 @@ public class SavesFolderWatcher extends FileWatcher {
                 stream.sorted(Comparator.reverseOrder())
                         .map(Path::toFile)
                         .forEach(File::delete);
+            } catch (NoSuchFileException ignored) {
+                Julti.log(Level.DEBUG, "File " + oldestDir.getName() + " is missing? (NoSuchFileException)");
+            } catch (AccessDeniedException e) {
+                Julti.log(Level.DEBUG, "Access for file " + oldestDir.getName() + " denied? (AccessDeniedException)");
             } catch (IOException e) {
-                Julti.log(Level.ERROR, "Error while bopping worlds:\n" + ExceptionUtil.toDetailedString(e));
+                Julti.log(Level.ERROR, "Unknown error while bopping worlds:\n" + ExceptionUtil.toDetailedString(e));
             }
         }
     }
