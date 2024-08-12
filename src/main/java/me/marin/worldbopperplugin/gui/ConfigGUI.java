@@ -66,11 +66,11 @@ public class ConfigGUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "Invalid number: '" + savesBuffer.getText() + "'.");
                 return;
             }
-            // number has to be between 5-5000
+            // number has to be between 50-5000
             number = Math.min(5000, number);
-            number = Math.max(5, number);
+            number = Math.max(50, number);
 
-            settings.savesBuffer = (int) number.longValue();
+            settings.savesBuffer = number.longValue();
             WorldBopperSettings.save();
 
             // update visually if number was too small/big

@@ -42,7 +42,7 @@ public class SavesFolderWatcher extends FileWatcher {
         String dirName = file.getName();
         if (!isValidDirectoryName(dirName)) return;
 
-        int worldsToKeep = WorldBopperSettings.getInstance().savesBuffer;
+        long worldsToKeep = WorldBopperSettings.getInstance().savesBuffer;
         if (WorldBopperSettings.getInstance().keepNetherWorlds) {
             worldsToKeep += netherWorldsToKeep.size();
         }
