@@ -1,5 +1,5 @@
 # Julti WorldBopper Plugin
-A Julti plugin which keeps your saves folder under a certain size. This reduces disk space space and it helps MultiMC to load instance settings faster (since it has fewer worlds to load).
+A Julti plugin which keeps your saves folder under a certain size. This reduces disk space usage and it helps MultiMC to load instance settings faster (since it has fewer worlds to load).
 
 ## Installation
 Download the latest version from the [Releases page](https://github.com/marin774/Julti-Worldbopper-Plugin/releases). Drag and drop it into your Julti plugins folder, and restart Julti.
