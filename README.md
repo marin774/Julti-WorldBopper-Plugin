@@ -5,7 +5,7 @@ A Julti plugin which keeps your saves folder under a certain size. This reduces 
 Download the latest version from the [Releases page](https://github.com/marin774/Julti-Worldbopper-Plugin/releases). Drag and drop it into your Julti plugins folder, and restart Julti.
 
 ## Setup
-Once you've installed the plugin and restarted Julti, run the quick setup:
+Once you've installed the plugin and restarted Julti, enable the plugin and configure it:
 1. Open the "Plugins" tab in Julti.
 2. Click on "Open Config" next to WorldBopper.
 3. Enable WorldBopper by clicking on the "Enable WorldBopper?" checkbox.
