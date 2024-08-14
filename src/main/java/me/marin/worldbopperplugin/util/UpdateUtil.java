@@ -57,7 +57,7 @@ public class UpdateUtil {
     public synchronized static UpdateInfo checkForUpdates() throws IOException {
         JsonObject meta = GrabUtil.grabJson("https://raw.githubusercontent.com/marin774/Julti-WorldBopper-Plugin/main/meta.json");
 
-        Julti.log(Level.DEBUG, "Grabbed Stats meta: " + meta.toString());
+        Julti.log(Level.DEBUG, "Grabbed WorldBopper meta: " + meta.toString());
 
         VersionUtil.Version latestVersion = VersionUtil.version(meta.get("latest").getAsString());
         String downloadURL = meta.get("latest_download").getAsString();
