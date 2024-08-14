@@ -5,12 +5,14 @@ import org.apache.logging.log4j.Level;
 import xyz.duncanruns.julti.Julti;
 import xyz.duncanruns.julti.instance.MinecraftInstance;
 import xyz.duncanruns.julti.management.InstanceManager;
+import xyz.duncanruns.julti.util.ExceptionUtil;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -23,22 +25,39 @@ public class InstanceManagerRunnable implements Runnable {
 
     public static final Map<String, SavesFolderWatcher> instanceWatcherMap = new HashMap<>();
 
-    private final HashSet<String> previousActiveInstancePaths = new HashSet<>();
+    private final HashSet<String> previousOpenInstancePaths = new HashSet<>();
 
     @Override
     public void run() {
-        HashSet<String> currentActiveInstancePaths = InstanceManager.getInstanceManager().getInstances().stream().map(i -> i.getPath().toString()).collect(Collectors.toCollection(HashSet::new));
-        HashSet<String> closedInstancePaths = new HashSet<>(previousActiveInstancePaths);
-        closedInstancePaths.removeAll(currentActiveInstancePaths);
+        try {
+            doRun();
+        } catch (Exception e) {
+            Julti.log(Level.DEBUG, "Error while tracking resets & wall time:\n" + ExceptionUtil.toDetailedString(e));
+        }
+    }
+
+    public void doRun() {
+        Set<MinecraftInstance> currentOpenInstances = InstanceManager.getInstanceManager().getInstances().stream()
+                .filter(i -> !i.checkWindowMissing())
+                .collect(Collectors.toSet());
+
+        Set<String> currentOpenInstancePaths = currentOpenInstances.stream()
+                .map(i -> i.getPath().toString())
+                .collect(Collectors.toSet());
+
+        HashSet<String> closedInstancePaths = new HashSet<>(previousOpenInstancePaths);
+        closedInstancePaths.removeAll(currentOpenInstancePaths);
 
         for (String closedInstancePath : closedInstancePaths) {
-            // close old watchers (this instance was just closed)
-            instanceWatcherMap.get(closedInstancePath).stop();
-            instanceWatcherMap.remove(closedInstancePath);
-            Julti.log(Level.DEBUG, "Closed a FileWatcher for instance: " + closedInstancePath);
+            if (instanceWatcherMap.containsKey(closedInstancePath)) {
+                // close old watchers (this instance was just closed)
+                instanceWatcherMap.get(closedInstancePath).stop();
+                instanceWatcherMap.remove(closedInstancePath);
+                Julti.log(Level.DEBUG, "Closed a FileWatcher for instance: " + closedInstancePath);
+            }
         }
 
-        for (MinecraftInstance instance : InstanceManager.getInstanceManager().getInstances()) {
+        for (MinecraftInstance instance : currentOpenInstances) {
             String path = instance.getPath().toString();
             if (!instanceWatcherMap.containsKey(path)) {
                 Path savesPath = Paths.get(instance.getPath().toString(), "saves");
@@ -51,8 +70,8 @@ public class InstanceManagerRunnable implements Runnable {
             }
         }
 
-        previousActiveInstancePaths.clear();
-        previousActiveInstancePaths.addAll(currentActiveInstancePaths);
+        previousOpenInstancePaths.clear();
+        previousOpenInstancePaths.addAll(currentOpenInstancePaths);
     }
 
 }

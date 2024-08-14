@@ -83,6 +83,7 @@ public abstract class FileWatcher implements Runnable {
     protected abstract void handleFileUpdated(File file);
     protected abstract void handleFileCreated(File file);
     protected void stop() {
+        Julti.log(Level.DEBUG, "Stopping FileWatcher for " + name + ".");
         watchKey.cancel();
     }
 
