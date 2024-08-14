@@ -5,6 +5,7 @@ import me.marin.worldbopperplugin.gui.ConfigGUI;
 import me.marin.worldbopperplugin.io.InstanceManagerRunnable;
 import me.marin.worldbopperplugin.io.WorldBopperSettings;
 import me.marin.worldbopperplugin.util.UpdateUtil;
+import me.marin.worldbopperplugin.util.VersionUtil;
 import me.marin.worldbopperplugin.util.WorldBopperUtil;
 import org.apache.logging.log4j.Level;
 import xyz.duncanruns.julti.Julti;
@@ -41,6 +42,7 @@ public class WorldBopperPlugin implements PluginInitializer {
 
             WorldBopperUtil.runTimerAsync(new InstanceManagerRunnable(), 1000);
 
+            VersionUtil.deleteOldVersionJars();
             UpdateUtil.checkForUpdatesAndUpdate(true);
         });
     }
