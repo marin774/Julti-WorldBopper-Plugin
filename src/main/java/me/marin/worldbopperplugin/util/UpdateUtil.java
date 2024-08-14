@@ -64,7 +64,7 @@ public class UpdateUtil {
         boolean isOutdated = VersionUtil.CURRENT_VERSION.isOlderThan(latestVersion);
 
         if (isOutdated) {
-            return new UpdateInfo(true, "New Stats Plugin version found: v" + latestVersion + "! Update now?", downloadURL);
+            return new UpdateInfo(true, "New WorldBopper Plugin version found: v" + latestVersion + "! Update now?", downloadURL);
         } else {
             return new UpdateInfo(false, "No new versions found.", null);
         }
