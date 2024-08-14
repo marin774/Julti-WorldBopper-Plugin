@@ -4,6 +4,7 @@ import com.google.common.io.Resources;
 import me.marin.worldbopperplugin.gui.ConfigGUI;
 import me.marin.worldbopperplugin.io.InstanceManagerRunnable;
 import me.marin.worldbopperplugin.io.WorldBopperSettings;
+import me.marin.worldbopperplugin.util.UpdateUtil;
 import me.marin.worldbopperplugin.util.WorldBopperUtil;
 import org.apache.logging.log4j.Level;
 import xyz.duncanruns.julti.Julti;
@@ -25,6 +26,7 @@ import static me.marin.worldbopperplugin.util.VersionUtil.CURRENT_VERSION;
 public class WorldBopperPlugin implements PluginInitializer {
 
     public static final Path WORLD_BOPPER_FOLDER_PATH = JultiOptions.getJultiDir().resolve("worldbopper-plugin");
+    public static final Path PLUGINS_PATH = JultiOptions.getJultiDir().resolve("plugins");
     public static final Path SETTINGS_PATH = WORLD_BOPPER_FOLDER_PATH.resolve("settings.json");
 
     public static ConfigGUI configGUI;
@@ -38,6 +40,8 @@ public class WorldBopperPlugin implements PluginInitializer {
             WorldBopperSettings.load();
 
             WorldBopperUtil.runTimerAsync(new InstanceManagerRunnable(), 1000);
+
+            UpdateUtil.checkForUpdatesAndUpdate(true);
         });
     }
 

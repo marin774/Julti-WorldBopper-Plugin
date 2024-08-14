@@ -4,6 +4,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import me.marin.worldbopperplugin.io.WorldBopperSettings;
+import me.marin.worldbopperplugin.util.UpdateUtil;
 import org.apache.logging.log4j.Level;
 import xyz.duncanruns.julti.Julti;
 import xyz.duncanruns.julti.gui.JultiGUI;
@@ -23,6 +24,8 @@ public class ConfigGUI extends JFrame {
     private JCheckBox keepWorldsWithNetherCheckBox;
     private JButton saveButton;
     private JPanel mainPanel;
+    private JPanel checkForUpdatesPanel;
+    private JButton checkForUpdatesButton;
 
     public ConfigGUI() {
         $$$setupUI$$$();
@@ -77,6 +80,10 @@ public class ConfigGUI extends JFrame {
             savesBuffer.setValue(settings.savesBuffer);
 
             JOptionPane.showMessageDialog(null, "Set world buffer to " + number + ".");
+        });
+
+        checkForUpdatesButton.addActionListener(a -> {
+            UpdateUtil.checkForUpdatesAndUpdate(false);
         });
     }
 
