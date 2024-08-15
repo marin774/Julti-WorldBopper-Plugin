@@ -80,6 +80,8 @@ public abstract class FileWatcher implements Runnable {
                     }
                 }
             } while (watchKey.reset());
+        } catch (ClosedWatchServiceException e) {
+            // when stop method gets called, ClosedWatchServiceException is thrown, and file watcher should stop.
         } catch (IOException | InterruptedException e) {
             Julti.log(Level.ERROR, "Error while reading:\n" + ExceptionUtil.toDetailedString(e));
         } catch (Exception e) {
